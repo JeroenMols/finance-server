@@ -3,7 +3,7 @@ const logger = require("morgan");
 
 const app = express()
 app.use(logger("dev"))
-const port = 4000
+const port = process.env.PORT || 4000 
 
 const https = require('https');
 
