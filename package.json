@@ -1,0 +1,25 @@
+{
+    "name": "finance-server",
+    "version": "0.0.1",
+    "description": "Backend for finance manager",
+    "main": "server.js",
+    "scripts": {
+        "start": "node index",
+        "devstart": "nodemon index"
+    },
+    "keywords": [],
+    "author": "Jeroen Mols",
+    "license": "MIT",
+    "dependencies": {
+        "bent": "^7.3.10",
+        "express": "^4.17.1",
+        "hbs": "^4.1.1",
+        "semver": "^7.3.2"
+    },
+    "devDependencies": {
+        "get-port": "^5.1.1",
+        "nock": "^13.0.4",
+        "nodemon": "^2.0.20",
+        "tape": "^5.0.1"
+    }
+}
