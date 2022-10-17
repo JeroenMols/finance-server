@@ -1,5 +1,8 @@
 const express = require('express')
+const logger = require("morgan");
+
 const app = express()
+app.use(logger("dev"))
 const port = 4000
 
 const https = require('https');
