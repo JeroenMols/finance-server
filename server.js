@@ -1,8 +1,10 @@
 const express = require('express')
 const logger = require("morgan");
+const cors = require('cors');
 
 const app = express()
 app.use(logger("dev"))
+app.use(cors())
 const port = process.env.PORT || 4000 
 
 const https = require('https');
