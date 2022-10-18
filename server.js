@@ -4,7 +4,13 @@ const cors = require('cors');
 
 const app = express()
 app.use(logger("dev"))
-app.use(cors())
+
+var corsOptions = {
+  origin: 'https://finance-manager-jm.herokuapp.com',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+app.use(cors(corsOptions))
+
 const port = process.env.PORT || 4000 
 
 const https = require('https');
