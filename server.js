@@ -1,11 +1,13 @@
 const express = require('express')
 const logger = require("morgan");
 const compression = require("compression");
+const helmet = require("helmet");
 const cors = require('cors');
 
 const app = express()
 app.use(logger("dev"))
 app.use(compression())
+app.use(helmet())
 
 var corsOptions = {
   origin: 'https://finance-manager-jm.herokuapp.com',
