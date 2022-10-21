@@ -9,13 +9,14 @@ app.use(logger("dev"))
 app.use(compression())
 app.use(helmet())
 
+const port = process.env.PORT || 4000
+const cors_origin = process.env.FRONTEND_URL || 'http://localhost:3000'
+
 var corsOptions = {
-  origin: 'https://finance-manager-jm.herokuapp.com',
+  origin: cors_origin,
   optionsSuccessStatus: 200 // For legacy browser support
 }
 app.use(cors(corsOptions))
-
-const port = process.env.PORT || 4000 
 
 const https = require('https');
 
