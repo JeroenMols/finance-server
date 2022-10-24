@@ -4,8 +4,10 @@
     "description": "Backend for finance manager",
     "main": "dist/server.js",
     "scripts": {
-        "start": "tsc && node dist/server",
-        "devstart": "nodemon --watch src -e ts,ejs --exec npm run start"
+        "start": "node dist/server",
+        "build": "tsc",
+        "buildStart": "tsc && node dist/server",
+        "devstart": "nodemon --watch src -e ts,ejs --exec npm run buildStart"
     },
     "keywords": [],
     "author": "Jeroen Mols",
