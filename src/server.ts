@@ -14,12 +14,7 @@ app.use(helmet());
 const port = process.env.PORT || 4000;
 const cors_origin = process.env.FRONTEND_UR || 'http://localhost:3000';
 
-type Holding = {
-  ticker: string;
-  amount: string; //should be number
-};
-
-var corsOptions = {
+const corsOptions = {
   origin: cors_origin,
   optionsSuccessStatus: 200, // For legacy browser support
 };
@@ -28,8 +23,8 @@ app.use(cors(corsOptions));
 import https from 'https';
 
 app.get('/stocks/:ticker/:amount', (req: Request, res: Response) => {
-  let ticker = req.params.ticker;
-  let amount = parseInt(req.params.amount);
+  const ticker = req.params.ticker;
+  const amount = parseInt(req.params.amount);
 
   https
     .get('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + ticker, (resp: IncomingMessage) => {
@@ -44,7 +39,7 @@ app.get('/stocks/:ticker/:amount', (req: Request, res: Response) => {
       resp.on('end', () => {
         const resultJson = JSON.parse(data);
         console.log(resultJson);
-        let stockData = toStockData(resultJson, amount);
+        const stockData = toStockData(resultJson, amount);
         console.log(stockData);
         res.send(stockData);
       });
@@ -71,17 +66,17 @@ type QuoteResult = {
 };
 
 type StockData = {
-  name: String;
-  ticker: String;
+  name: string;
+  ticker: string;
   price: number;
   shares: number;
   totalValue: number;
 };
 
-function toStockData(quoteData: QuoteData, shares: number) {
-  let result = quoteData.quoteResponse.result[0];
-  let price = parseFloat(result.regularMarketPrice);
-  let totalValue = parseFloat((price * shares).toFixed(2));
+function toStockData(quoteData: QuoteData, shares: number): StockData {
+  const result = quoteData.quoteResponse.result[0];
+  const price = parseFloat(result.regularMarketPrice);
+  const totalValue = parseFloat((price * shares).toFixed(2));
   return {
     name: result.longName,
     ticker: result.symbol,
