@@ -12,7 +12,7 @@ app.use(compression());
 app.use(helmet());
 
 const port = process.env.PORT || 4000;
-const cors_origin = process.env.FRONTEND_UR || 'http://localhost:3000';
+const cors_origin = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 const corsOptions = {
   origin: cors_origin,
