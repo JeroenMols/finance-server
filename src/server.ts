@@ -10,7 +10,9 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
 
+import users from './users/route';
 import stocks from './stocks/route';
+app.use('/users', users);
 app.use('/stocks', stocks);
 
 const port = process.env.PORT || 4000;
