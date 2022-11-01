@@ -16,7 +16,7 @@ router.get('/create', (req: Request, res: Response): void => {
 });
 
 // TODO temporary endpoint needs to be removed
-router.get('/get', (req: Request, res: Response): void => {
+router.get('/debug', (req: Request, res: Response): void => {
   db.query('SELECT * FROM account').then((it: QueryResult) => {
     console.log(it.rows);
     res.send(it.rows);

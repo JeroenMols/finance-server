@@ -11,7 +11,7 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
 
-import users from './routes/users';
+import users from './routes/account';
 import stocks from './routes/stocks';
 app.use('/users', users);
 app.use('/stocks', stocks);
