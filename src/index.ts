@@ -5,16 +5,14 @@ import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
 import { CORS_ORIGIN, PORT } from './config';
+import mountRoutes from './routes';
 
 const app = Express();
 app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
 
-import users from './routes/account';
-import stocks from './routes/stocks';
-app.use('/users', users);
-app.use('/stocks', stocks);
+mountRoutes(app);
 
 const corsOptions = {
   origin: CORS_ORIGIN,
