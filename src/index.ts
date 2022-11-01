@@ -14,14 +14,13 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
 
-mountRoutes(app);
-
 const corsOptions = {
   origin: CORS_ORIGIN,
   optionsSuccessStatus: 200, // For legacy browser support
 };
-app.use(cors(corsOptions));
+app.use('*', cors(corsOptions));
 
+mountRoutes(app);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
