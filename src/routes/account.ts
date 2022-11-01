@@ -69,5 +69,3 @@ type Account = {
   uuid: string;
   created_at: string;
 };
-
-type unused = Record<string, unknown>;

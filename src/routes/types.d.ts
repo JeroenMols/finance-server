@@ -1,3 +1,10 @@
+// Alias to shorten the express POST syntax
+type unused = Record<string, unknown>;
+
+type AccessToken = {
+  access_token: string;
+};
+
 type QuoteData = {
   quoteResponse: {
     result: QuoteResult[];
