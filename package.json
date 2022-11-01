@@ -2,11 +2,11 @@
     "name": "finance-server",
     "version": "0.0.1",
     "description": "Backend for finance manager",
-    "main": "dist/server.js",
+    "main": "dist/index.js",
     "scripts": {
-        "start": "node dist/server",
+        "start": "node dist/index",
         "build": "tsc",
-        "buildStart": "tsc && node dist/server",
+        "buildStart": "tsc && node dist/index",
         "devstart": "nodemon --watch src -e ts,ejs --exec npm run buildStart",
         "lint": "eslint ./"
     },
