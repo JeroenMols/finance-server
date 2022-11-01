@@ -1,5 +1,6 @@
 import Express from 'express';
 
+import bodyParser from 'body-parser';
 import logger from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -8,6 +9,7 @@ import { CORS_ORIGIN, PORT } from './config';
 import mountRoutes from './routes';
 
 const app = Express();
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
