@@ -13,6 +13,8 @@ router.post('/add', async (req: Request<unused, unused, HoldingAddRequest>, res:
 
   const session = sessionOrError as Session;
 
+  // TODO verify whether ticker is valid
+
   await db.query('insert into holding (account_id, ticker, shares) values ($1, $2, $3)', [
     session.account_id,
     req.body.ticker,
