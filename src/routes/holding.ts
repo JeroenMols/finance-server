@@ -4,6 +4,18 @@ const db = require('../db');
 
 const router = require('express-promise-router')();
 
+router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Response): Promise<void> => {
+  const sessionOrError = await getSession(req.body.access_token);
+  if (isError(sessionOrError)) {
+    res.status(440);
+    res.send(sessionOrError);
+  }
+
+  const session = sessionOrError as Session;
+  const { rows } = await db.query('select ticker, shares from holding where account_id = $1', [session.account_id]);
+  res.send(rows);
+});
+
 router.post('/add', async (req: Request<unused, unused, HoldingAddRequest>, res: Response): Promise<void> => {
   const sessionOrError = await getSession(req.body.access_token);
   if (isError(sessionOrError)) {
