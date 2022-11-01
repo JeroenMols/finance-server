@@ -1,11 +1,8 @@
 import { Pool } from 'pg';
+import { DATABASE_URL } from '../config';
 
 const pool = new Pool({
-  user: 'jmols',
-  host: 'localhost',
-  database: 'finance_server',
-  password: '',
-  port: 5432,
+  connectionString: DATABASE_URL,
 });
 
 module.exports = {
