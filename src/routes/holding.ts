@@ -18,7 +18,7 @@ router.post('/add', async (req: Request<unused, unused, HoldingAddRequest>, res:
   await db.query('insert into holding (account_id, ticker, shares) values ($1, $2, $3)', [
     session.account_id,
     req.body.ticker,
-    req.body.amount,
+    req.body.shares,
   ]);
 
   const { rows } = await db.query('select ticker, shares from holding where account_id = $1', [session.account_id]);
@@ -52,9 +52,11 @@ type Session = AccessToken & {
   expired_at: string;
 };
 
-type HoldingAddRequest = AccessToken & {
+type Holding = {
   ticker: string;
-  amount: number;
+  shares: number;
 };
+
+type HoldingAddRequest = AccessToken & Holding;
 
 export default router;
