@@ -14,15 +14,15 @@ router.post('/create', async (req: Request<unused, unused, AccountCreate>, res: 
     return;
   }
 
-  const userId = crypto.randomUUID();
-  const { rows } = await db.query('INSERT into account(uuid) values ($1)', [userId]);
+  const account_uuid = crypto.randomUUID();
+  const { rows } = await db.query('INSERT into account(uuid) values ($1)', [account_uuid]);
 
   console.log(rows);
-  res.send(userId);
+  res.send({ account_uuid: account_uuid });
 });
 
 router.post('/login', async (req: Request<unused, unused, AccountLogin>, res: Response): Promise<void> => {
-  const accountUuid = req.body.account_id;
+  const accountUuid = req.body.account_uuid;
   if (!accountUuid) {
     console.log('bad request - missing account_id');
     res.status(404);
@@ -31,7 +31,7 @@ router.post('/login', async (req: Request<unused, unused, AccountLogin>, res: Re
   }
   console.log(accountUuid);
 
-  const accountResult = await db.query('SELECT id, uuid from account where uuid = ($1)', [accountUuid]);
+  const accountResult = await db.query('SELECT id, uuid, created_at from account where uuid = ($1)', [accountUuid]);
   if (accountResult.rowCount < 1) {
     res.status(401);
     res.send({ error: 'user does not exist' });
@@ -48,8 +48,8 @@ router.post('/login', async (req: Request<unused, unused, AccountLogin>, res: Re
     expirationDate,
   ]);
 
-  console.log(rows);
-  res.send(accessToken);
+  console.log(rows[0]);
+  res.send({ access_token: accessToken, expiration_date: expirationDate });
 });
 
 // TODO temporary endpoint needs to be removed
@@ -62,7 +62,7 @@ router.get('/debug', async (req: Request, res: Response): Promise<void> => {
 export default router;
 
 type AccountCreate = { application_secret: string };
-type AccountLogin = { account_id: string };
+type AccountLogin = { account_uuid: string };
 
 type Account = {
   id: number;
