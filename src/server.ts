@@ -10,8 +10,8 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(helmet());
 
-import users from './users/route';
-import stocks from './stocks/route';
+import users from './routes/users';
+import stocks from './routes/stocks';
 app.use('/users', users);
 app.use('/stocks', stocks);
 
