@@ -7,7 +7,7 @@
         "start": "node dist/index",
         "build": "tsc",
         "buildStart": "tsc && node dist/index",
-        "devstart": "nodemon --watch src -e ts,ejs --exec npm run buildStart",
+        "devStart": "nodemon --watch src -e ts,ejs --exec npm run buildStart",
         "lint": "eslint ./"
     },
     "keywords": [],

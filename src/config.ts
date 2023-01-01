@@ -14,7 +14,6 @@ export const DATABASE_SSL =
 
 function createLocalDbUrl(): string {
   const localDbName = 'finance_server';
-  const localDbUser = 'jmols';
   const localDbPort = 5432;
-  return `postgresql://${localDbUser}@localhost:${localDbPort}/${localDbName}`;
+  return `postgresql://@localhost:${localDbPort}/${localDbName}`;
 }
