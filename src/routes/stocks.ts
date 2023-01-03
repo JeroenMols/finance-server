@@ -38,7 +38,7 @@ router.get('/history/:ticker/:amount', (req: Request, res: Response) => {
   // TODO: make timeframe dynamic
   https
     .get(
-      `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1wk&period1=1641046381&period2=1672668781`,
+      `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1mo&period1=1641046381&period2=1672668781`,
       (resp: IncomingMessage) => {
         let data = '';
         resp.on('data', (chunk) => {
