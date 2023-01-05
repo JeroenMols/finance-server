@@ -30,7 +30,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
     const stockPricesMap = new Map(stockPrices.map((stockPrice) => [stockPrice.ticker, stockPrice]));
 
     const portfolioValue = holdings.reduce((prev, next) => {
-      const stock = stockPricesMap.get(next.ticker.toUpperCase());
+      const stock = stockPricesMap.get(next.ticker);
       if (stock === undefined) {
         // TODO better error handling
         console.log('This should never happen: ' + next.ticker);
@@ -39,7 +39,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
     }, 0);
 
     const stocks = holdings.map((holding) => {
-      const stockPrice = stockPricesMap.get(holding.ticker.toUpperCase());
+      const stockPrice = stockPricesMap.get(holding.ticker);
       if (stockPrice === undefined) {
         console.log('This should never happen');
         return;

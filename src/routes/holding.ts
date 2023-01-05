@@ -29,7 +29,7 @@ router.post('/add', async (req: Request<unused, unused, HoldingAddRequest>, res:
 
   await db.query('insert into holding (account_id, ticker, shares) values ($1, $2, $3)', [
     session.account_id,
-    req.body.ticker,
+    req.body.ticker.toUpperCase(),
     req.body.shares,
   ]);
 
