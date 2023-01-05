@@ -12,7 +12,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
   }
 
   const session = sessionOrError as Session;
-  const { rows } = await db.query('select ticker, shares from holding where account_id = $1', [session.account_id]);
+  const { rows } = await db.query('select ticker, quantity from holding where account_id = $1', [session.account_id]);
   res.send(rows);
 });
 
@@ -27,13 +27,13 @@ router.post('/add', async (req: Request<unused, unused, HoldingAddRequest>, res:
 
   // TODO verify whether ticker is valid
 
-  await db.query('insert into holding (account_id, ticker, shares) values ($1, $2, $3)', [
+  await db.query('insert into holding (account_id, ticker, quantity) values ($1, $2, $3)', [
     session.account_id,
     req.body.ticker.toUpperCase(),
-    req.body.shares,
+    req.body.quantity,
   ]);
 
-  const { rows } = await db.query('select ticker, shares from holding where account_id = $1', [session.account_id]);
+  const { rows } = await db.query('select ticker, quantity from holding where account_id = $1', [session.account_id]);
   res.send(rows);
 });
 
@@ -66,7 +66,7 @@ type Session = AccessToken & {
 
 type Holding = {
   ticker: string;
-  shares: number;
+  quantity: number;
 };
 
 type HoldingAddRequest = AccessToken & Holding;

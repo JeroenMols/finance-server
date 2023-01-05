@@ -16,11 +16,11 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
   }
 
   const session = sessionOrError as Session;
-  const { rows } = await db.query('select ticker, shares from holding where account_id = $1', [session.account_id]);
+  const { rows } = await db.query('select ticker, quantity from holding where account_id = $1', [session.account_id]);
   console.log(rows);
 
   // TODO: shares should be amount
-  const holdings = rows as { ticker: string; shares: number }[];
+  const holdings = rows as { ticker: string; quantity: number }[];
   const getStockPromises: Promise<StockPriceData>[] = [];
   for (let i = 0; i < holdings.length; i++) {
     console.log('loading stock: ' + holdings[i].ticker);
@@ -35,7 +35,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
         // TODO better error handling
         console.log('This should never happen: ' + next.ticker);
       }
-      return prev + next.shares * stock!.price;
+      return prev + next.quantity * stock!.price;
     }, 0);
 
     const stocks = holdings.map((holding) => {
@@ -45,14 +45,14 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
         return;
       }
 
-      const value = parseFloat((stockPrice.price * holding.shares).toFixed(2));
+      const value = parseFloat((stockPrice.price * holding.quantity).toFixed(2));
       const relativeValue = parseFloat((value / portfolioValue).toFixed(2));
       return {
-        stock_id: 1,
+        stock_id: 1, // TODO
         name: stockPrice.name,
         ticker: stockPrice.ticker,
         price: stockPrice.price,
-        quantity: holding.shares,
+        quantity: holding.quantity,
         value: value,
         relativeValue: relativeValue,
       };

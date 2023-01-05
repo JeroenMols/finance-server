@@ -14,8 +14,8 @@ CREATE TABLE login (
 CREATE TABLE holding (
   id serial PRIMARY KEY,
   account_id integer NOT NULL,
-  shares integer NOT NULL,
   ticker varchar(10) NOT NULL CHECK (upper(ticker) = ticker),
+  quantity integer NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_account FOREIGN KEY(account_id) REFERENCES account(id) ON DELETE CASCADE
 );
