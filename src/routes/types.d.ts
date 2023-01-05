@@ -17,10 +17,8 @@ type QuoteResult = {
   symbol: string;
 };
 
-type StockData = {
+type StockPriceData = {
   name: string;
   ticker: string;
   price: number;
-  shares: number;
-  totalValue: number;
 };
