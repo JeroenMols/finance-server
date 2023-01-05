@@ -29,7 +29,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
   Promise.all(getStockPromises).then((stockPrices) => {
     const stockPricesMap = new Map(stockPrices.map((stockPrice) => [stockPrice.ticker, stockPrice]));
 
-    const portfolioValue = holdings.reduce((prev, next) => {
+    const portfolioValueRaw = holdings.reduce((prev, next) => {
       const stock = stockPricesMap.get(next.ticker);
       if (stock === undefined) {
         // TODO better error handling
@@ -37,6 +37,7 @@ router.post('/get', async (req: Request<unused, unused, AccessToken>, res: Respo
       }
       return prev + next.quantity * stock!.price;
     }, 0);
+    const portfolioValue = parseFloat(portfolioValueRaw.toFixed(2));
 
     const stocks = holdings.map((holding) => {
       const stockPrice = stockPricesMap.get(holding.ticker);
